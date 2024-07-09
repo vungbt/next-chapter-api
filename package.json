@@ -1,0 +1,117 @@
+{
+  "name": "next-chapter-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx tsc",
+    "start": "node -r module-alias/register ./dist",
+    "dev": "cross-env NODE_ENV=development && nodemon",
+    "format": "prettier --write \"./src/**/*.{ts,tsx,json,css,scss,less}\" --config ./.prettierrc",
+    "db:migration:generate": "sequelize migration:generate --migrations-path src/sequelize/migrations --name",
+    "db:migrate": "npx sequelize-cli db:migrate --migrations-path src/sequelize/migrations",
+    "db:migrate:undo": "npx sequelize-cli db:migrate:undo --migrations-path src/sequelize/migrations",
+    "db:migrate:undoAll": "npx sequelize-cli db:migrate:undo:all --migrations-path src/sequelize/migrations",
+    "db:seed:generate": "sequelize seed:generate --seeders-path src/sequelize/seeders --name",
+    "db:seed": "npm run db:build:migrations && sequelize db:seed:all",
+    "postinstall": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vungbt/next-chapter-api.git"
+  },
+  "keywords": [
+    "book"
+  ],
+  "author": "vungbt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vungbt/next-chapter-api/issues"
+  },
+  "homepage": "https://github.com/vungbt/next-chapter-api#readme",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0",
+    "http": "^0.0.1-security",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
+    "module-alias": "^2.2.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.4",
+    "pg": "^8.12.0",
+    "rotating-file-stream": "^3.2.3",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
+    "slug": "^9.1.0",
+    "ts-custom-error": "^3.3.1",
+    "tsconfig-paths": "^4.2.0",
+    "uuid": "^10.0.0",
+    "validatorjs": "^3.22.1",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.3.0",
+    "@commitlint/config-conventional": "^19.2.2",
+    "@types/bcrypt": "^5.0.2",
+    "@types/compression": "^1.7.5",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/lodash": "^4.17.6",
+    "@types/morgan": "^1.9.9",
+    "@types/node": "^20.14.10",
+    "@types/pg": "^8.11.6",
+    "@types/uuid": "^10.0.0",
+    "@types/validatorjs": "^3.15.5",
+    "cross-env": "^7.0.3",
+    "fs-extra": "^11.2.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.2",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.3"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src"
+    ],
+    "ext": "ts, json",
+    "ignore": [
+      "src/public"
+    ],
+    "exec": "ts-node -r tsconfig-paths/register ./src"
+  },
+  "_moduleAliases": {
+    "@/": "dist/",
+    "@routers": "dist/routers",
+    "@services": "dist/services",
+    "@controllers": "dist/controllers",
+    "@utils": "dist/utils",
+    "@middlewares": "dist/middlewares",
+    "@types": "dist/types",
+    "@modules": "dist/modules",
+    "@sequelize": "dist/sequelize",
+    "@locale": "dist/locale",
+    "@configs": "dist/configs"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "npm run format",
+      "git add ."
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}
