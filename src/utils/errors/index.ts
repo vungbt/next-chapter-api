@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
-import HttpStatus from 'http-status-codes'
 import { CustomError } from 'ts-custom-error'
 import { isString } from 'lodash'
+import { HttpStatus } from '@/constants'
 
 export type Extensions = Record<string, unknown>
 

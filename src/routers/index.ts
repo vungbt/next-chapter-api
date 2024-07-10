@@ -1,15 +1,14 @@
 import express from 'express'
-
-import users from './users'
 import auth from './auth'
-import NotFound from '@/utils/errors/NotFound'
+import users from './users'
+import { HttpStatus } from '@/constants'
 
 const router = express.Router()
 
 router.use('/auth', auth)
 router.use('/users', users)
-router.all('*', () => {
-  throw new NotFound()
-})
+router.all('*', (_, res) =>
+  res.jsonApi(HttpStatus.OK, { message: 'message:hello_api' }),
+)
 
 export default router

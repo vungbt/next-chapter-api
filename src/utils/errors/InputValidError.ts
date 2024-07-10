@@ -1,4 +1,4 @@
-import HttpStatus from 'http-status-codes'
+import { HttpStatus } from '@/constants'
 import BaseError from '.'
 
 export default class InputValidError extends BaseError {

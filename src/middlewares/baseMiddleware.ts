@@ -1,6 +1,6 @@
+import { HttpStatus } from '@/constants'
 import { DataResponse } from '@/type'
 import { NextFunction, Request, Response } from 'express'
-import HttpStatus from 'http-status-codes'
 import { startsWith } from 'lodash'
 
 const baseMiddleware = (req: Request, res: Response, next: NextFunction) => {

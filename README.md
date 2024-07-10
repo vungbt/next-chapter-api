@@ -19,6 +19,12 @@ $ docker compose up -d
 # install package
 $ yarn install
 
+# migration
+$ yarn db:migrate
+
+# seed
+$ yarn db:seed
+
 # dev mode
 $ yarn dev
 ```
@@ -39,12 +45,13 @@ $ yarn test:cov
 ## Structure
 
 ```bash
+/scripts
 /src
 ├── /config
 │   ├── env
 │   ├── i18n
-│   ├── swagger
 │   ├── validator
+├── /constants
 ├── /controllers
 ├── /language
 │   ├── en
@@ -68,7 +75,7 @@ $ yarn test:cov
 │   ├── jwt
 │   ├── logger
 ├── /validation
-├── index.js
+├── index.ts
 ```
 
 ## 

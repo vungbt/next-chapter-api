@@ -4,7 +4,6 @@ import slug from 'slug'
 import { formatDate } from './formatter'
 export * from './formatter'
 export * from './regex'
-import HttpStatus from 'http-status-codes'
 
 /**
  * compare input password during login
@@ -22,31 +21,6 @@ export function comparePassword(
 
 export function hashPassword(password: string) {
   return bcrypt.hashSync(password, 10)
-}
-
-/**
- * create common response object for application
- * @param content
- * @param metadata
- * @returns
- */
-export function responseHelper<T>(data: T, metadata?: any, code?: number) {
-  const res: {
-    statusCode: number
-    statusText: string
-    data: T
-    metadata?: any
-  } = {
-    statusCode: HttpStatus.OK,
-    statusText: HttpStatus.getStatusText(HttpStatus.OK),
-    data: data, // initialize with data of type T
-    metadata: metadata ? { ...metadata } : undefined,
-  }
-  if (code) {
-    res.statusCode = code
-    res.statusText = HttpStatus.getStatusText(code)
-  }
-  return res
 }
 
 /**

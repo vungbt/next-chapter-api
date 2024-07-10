@@ -5,7 +5,7 @@ const signIn = async (req: Request, res: Response, next: NextFunction) =>
   validator(req, res, next, {
     data: req.body,
     rules: {
-      username: 'required|unique:user,username',
+      username: 'required',
       password: 'required',
     },
   })

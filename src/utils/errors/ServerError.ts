@@ -1,5 +1,5 @@
+import { HttpStatus } from '@/constants'
 import BaseError from '.'
-import HttpStatus from 'http-status-codes'
 
 export default class ServerError extends BaseError {
   public code = 'server_error'
