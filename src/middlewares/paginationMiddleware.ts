@@ -1,4 +1,4 @@
-import ServerError from '@utils/errors/ServerError'
+import ServerError from '@/utils/errors/ServerError'
 import { NextFunction, Response } from 'express'
 
 const pagingMiddleware = (req: any, res: Response, next: NextFunction) => {

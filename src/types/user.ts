@@ -1,3 +1,4 @@
+import UserModel from '@/sequelize/models/user'
 import { IModelBase } from './common'
 
 export enum EUserRole {
@@ -11,3 +12,5 @@ export interface IUserAttributes extends IModelBase {
   avatarUrl?: string
   role?: EUserRole
 }
+
+export interface IUser extends UserModel {}

@@ -1,4 +1,4 @@
-import sequelize from '@sequelize'
+import sequelize from '@/sequelize'
 
 const uniqueRule = async (
   value: string | number | boolean,

@@ -1,9 +1,9 @@
-import User from '@models/user'
-import { EUserRole, IUserAttributes } from '@types'
+import UserModel from '@/sequelize/models/user'
+import { EUserRole, IUser, IUserAttributes } from '@/types'
 import { FindOptions } from 'sequelize'
 
 const list = async () => {
-  return await User.findAll()
+  return await UserModel.findAll()
 }
 
 const create = async (userBody: {
@@ -11,14 +11,14 @@ const create = async (userBody: {
   password: string
   avatarUrl?: string
   role: EUserRole
-}): Promise<User> => {
-  return User.create({ ...userBody })
+}): Promise<IUser> => {
+  return UserModel.create({ ...userBody })
 }
 
 const findOne = async (
   options?: FindOptions<IUserAttributes> | undefined,
-): Promise<User | null> => {
-  return User.findOne(options)
+): Promise<UserModel | null> => {
+  return UserModel.findOne(options)
 }
 
 export const UserServices = {

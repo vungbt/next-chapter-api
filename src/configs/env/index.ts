@@ -13,6 +13,7 @@ export default {
     env: process.env.NODE_ENV ?? 'development',
     host: process.env.HOST ?? 'http://localhost',
     port: process.env.PORT ?? 4001,
+    name: process.env.NAME ?? 'NextChapterApp',
   },
   cloudinary: {
     name: process.env.CLOUDINARY_NAME ?? 'CLOUDINARY_NAME',

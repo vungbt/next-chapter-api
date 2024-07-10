@@ -1,4 +1,4 @@
-import logger from '@utils/logger'
+import logger from '@/utils/logger'
 
 const dateTimeISORule = (
   value: string | number | boolean,

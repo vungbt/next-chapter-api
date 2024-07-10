@@ -42,8 +42,13 @@ $ yarn test:cov
 /src
 ├── /config
 │   ├── env
+│   ├── i18n
+│   ├── swagger
 │   ├── validator
 ├── /controllers
+├── /language
+│   ├── en
+│   ├── vi
 ├── /middlewares
 │   ├── authMiddleware.js
 │   ├── baseMiddleware.js
@@ -51,7 +56,10 @@ $ yarn test:cov
 ├── /models
 ├── /routes
 ├── /sequelize
+│   ├── config
 │   ├── migrations
+│   ├── models
+│   ├── seeders
 │   ├── index.ts
 ├── /services
 ├── /types

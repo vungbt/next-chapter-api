@@ -1,4 +1,4 @@
-import { UserServices } from '@services'
+import { UserServices } from '@/services'
 import express from 'express'
 
 const getAllUser = async (req: express.Request, res: express.Response) => {

@@ -2,7 +2,7 @@ import express from 'express'
 
 import users from './users'
 import auth from './auth'
-import NotFound from '@utils/errors/NotFound'
+import NotFound from '@/utils/errors/NotFound'
 
 const router = express.Router()
 

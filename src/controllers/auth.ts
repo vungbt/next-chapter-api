@@ -1,4 +1,4 @@
-import { AuthServices } from '@services'
+import { AuthServices } from '@/services'
 import { NextFunction, Request, Response } from 'express'
 
 const signIn = async (req: Request, res: Response, next: NextFunction) => {

@@ -1,5 +1,5 @@
-import UserModel from '@models/user'
-import { IUserAttributes } from '@types'
+import UserModel from '@/sequelize/models/user'
+import { IUserAttributes } from '@/types'
 
 export interface IJwtRes {
   accessToken: string

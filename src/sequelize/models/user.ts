@@ -1,5 +1,5 @@
-import sequelize from '@sequelize'
-import { EUserRole, IUserAttributes } from '@types'
+import sequelize from '@/sequelize'
+import { EUserRole, IUserAttributes } from '@/types'
 import { DataTypes, Model } from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
 

@@ -1,22 +1,23 @@
-import UserModel from '@models/user'
-import { Payload } from '@type'
+import UserModel from '@/sequelize/models/user'
+import { Payload } from '@/type'
 import {
   EUserRole,
   ISignInArgs,
   ISignInRes,
   ISignUpArgs,
   ISignUpRes,
-} from '@types'
-import ArgumentError from '@utils/errors/ArgumentError'
-import ConflictError from '@utils/errors/ConflictError'
-import { signJwt } from '@utils/jwt'
+} from '@/types'
+import ArgumentError from '@/utils/errors/ArgumentError'
+import ConflictError from '@/utils/errors/ConflictError'
+import { hashPassword } from '@/utils/helpers'
+import { signJwt } from '@/utils/jwt'
 import bcrypt from 'bcrypt'
 
 const signUp = async (args: ISignUpArgs): Promise<ISignUpRes> => {
   const { username, password, role = EUserRole.Customer } = args
   const userValid = await UserModel.findOne({ where: { username } })
   if (userValid) throw new ConflictError('user_conflict')
-  const hashedPassword = await bcrypt.hash(password, 10)
+  const hashedPassword = hashPassword(password)
   const user = await UserModel.create({
     username,
     password: hashedPassword,

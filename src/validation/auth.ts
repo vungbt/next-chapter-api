@@ -1,4 +1,4 @@
-import validator from '@validation'
+import validator from '@/validation'
 import { NextFunction, Request, Response } from 'express'
 
 const signIn = async (req: Request, res: Response, next: NextFunction) =>

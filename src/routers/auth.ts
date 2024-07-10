@@ -1,5 +1,5 @@
-import { AuthControllers } from '@controllers'
-import { AuthValidations } from '@validation'
+import { AuthControllers } from '@/controllers'
+import { AuthValidations } from '@/validation'
 import express, { Router } from 'express'
 
 const router: Router = express.Router()

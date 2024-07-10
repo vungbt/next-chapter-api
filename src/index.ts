@@ -4,21 +4,23 @@ import compression from 'compression'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import http from 'http'
-import morgan from '@utils/logger/morgan'
-import { handleErrorApi } from '@utils/errors'
-import baseMiddleware from '@middlewares/baseMiddleware'
-import routers from '@routers'
-import sequelize from '@sequelize'
-import logger from '@utils/logger'
-import dotenv from 'dotenv'
+import morgan from '@/utils/logger/morgan'
+import { handleErrorApi } from '@/utils/errors'
+import baseMiddleware from '@/middlewares/baseMiddleware'
+import routers from '@/routers'
+import sequelize from '@/sequelize'
+import logger from '@/utils/logger'
 import path from 'path'
-import env from '@configs/env'
+import dotenv from 'dotenv'
+import i18next from '@/configs/i18n'
 
+// Load environment variables early
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
-const app: Application = express()
-const port = env.server.port ?? 4000
+import env from '@/configs/env'
 
-// basic
+const app: Application = express()
+
+// Basic middleware
 app.use(compression())
 app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: true }))
@@ -28,13 +30,25 @@ app.use(
   }),
 )
 
-// security
+// Security
 if (env.server.env === 'production') {
   app.use(helmet())
 }
 
+// Language
+app.use(i18next)
+app.use((req, _, next) => {
+  req.i18n.changeLanguage(
+    req.i18n.language.split('-').shift() || process.env.LOCALE_DEFAULT || 'vi',
+  )
+  return next()
+})
+
+// API routing
 app.use('/api', morgan, baseMiddleware, routers, handleErrorApi)
 
+// Start the server
+const port = process.env.PORT ?? 4000
 const server = http.createServer(app)
 server.listen(port, async () => {
   try {
@@ -45,6 +59,6 @@ server.listen(port, async () => {
       `[App] ✔ started on worker ${process.pid} http://localhost:${port}/api`,
     )
   } catch (error) {
-    logger.error(`[App] ✔ Unable to connect to the database:`, error)
+    logger.error(`[App] ❌ Unable to connect to the database:`, error)
   }
 })

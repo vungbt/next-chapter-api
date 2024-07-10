@@ -1,8 +1,8 @@
-import { Payload } from '@type'
+import { Payload } from '@/type'
 import jwt from 'jsonwebtoken'
 import { addSeconds } from 'date-fns'
-import { IJwtRes } from '@types'
-import env from '@configs/env'
+import { IJwtRes } from '@/types'
+import env from '@/configs/env'
 export default jwt
 
 export const createToken = (payload: Payload, expiresIn: number) => {

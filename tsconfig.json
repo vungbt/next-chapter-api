@@ -13,11 +13,11 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "@*": ["./src/*"]
+      "@/*": ["./src/*"]
     },
     "types": ["node"],
     "typeRoots": ["node_modules/@types"],
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/sequelize/migrations/20240710022550-initial-database.js", "src/sequelize/seeders/20240710073038-users.js"],
   "exclude": ["src/public/"],
 }

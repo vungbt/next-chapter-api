@@ -1,5 +1,8 @@
 import { Dialect, Sequelize } from 'sequelize'
 import pg from 'pg'
+import dotenv from 'dotenv'
+import path from 'path'
+dotenv.config({ path: path.resolve(__dirname, '../../.env') })
 
 const database = {
   host: process.env.DB_HOST,
