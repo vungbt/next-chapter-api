@@ -5,6 +5,6 @@ export interface IAuthor extends AuthorModel {}
 
 export interface IAuthorAttributes extends IModelBase {
   fullName: string
-  avatarUrl?: string
-  thumbnail?: string
+  avatarId?: string
+  thumbnailId?: string
 }

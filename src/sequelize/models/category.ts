@@ -2,8 +2,8 @@ import sequelize from '@/sequelize'
 import { ICategoryAttributes } from '@/types'
 import { DataTypes, Model } from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
+import FileModel from './file'
 import UserModel from './user'
-import ContentModel from './content'
 
 class CategoryModel
   extends Model<ICategoryAttributes>
@@ -13,8 +13,8 @@ class CategoryModel
   public slug!: string
   public name!: string
   public description?: string
-  public thumbnail?: string
-  public createdById!: string
+  public thumbnailId?: string
+  public userId!: string
   public createdAt?: Date
   public updatedAt?: Date
   public deletedAt?: Date
@@ -41,11 +41,11 @@ CategoryModel.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    thumbnail: {
-      type: DataTypes.STRING,
+    thumbnailId: {
+      type: DataTypes.UUID,
       allowNull: true,
     },
-    createdById: {
+    userId: {
       type: DataTypes.UUID,
       allowNull: false,
     },
@@ -61,10 +61,9 @@ CategoryModel.init(
   },
 )
 
-CategoryModel.belongsTo(UserModel, { as: 'user', foreignKey: 'createdById' })
-CategoryModel.belongsToMany(ContentModel, {
-  through: 'ContentCategories',
-  as: 'contents',
-  foreignKey: 'categoryId',
+CategoryModel.belongsTo(UserModel, { as: 'user', foreignKey: 'userId' })
+CategoryModel.belongsTo(FileModel, {
+  foreignKey: 'thumbnailId',
+  as: 'thumbnail',
 })
 export default CategoryModel

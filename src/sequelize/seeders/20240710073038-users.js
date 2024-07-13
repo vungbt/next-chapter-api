@@ -11,8 +11,7 @@ module.exports = {
           {
             id: faker.string.uuid(),
             username: 'admin',
-            password: bcrypt.hashSync('Admin123', 10),
-            avatarUrl: faker.image.avatar(),
+            password: bcrypt.hashSync('Admin123@', 10),
             role: 'admin',
             createdAt: new Date(),
             updatedAt: new Date(),
@@ -20,8 +19,7 @@ module.exports = {
           {
             id: faker.string.uuid(),
             username: 'customer',
-            password: bcrypt.hashSync('Admin123', 10),
-            avatarUrl: faker.image.avatar(),
+            password: bcrypt.hashSync('Admin123@', 10),
             role: 'customer',
             createdAt: new Date(),
             updatedAt: new Date(),

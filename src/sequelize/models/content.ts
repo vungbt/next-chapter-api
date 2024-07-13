@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from 'uuid'
 import UserModel from './user'
 import CategoryModel from './category'
 import AuthorModel from './author'
+import FileModel from './file'
+import ContentCategoryModel from './content-category'
 
 class ContentModel
   extends Model<IContentAttributes>
@@ -14,8 +16,8 @@ class ContentModel
   public slug!: string
   public name!: string
   public description?: string
-  public thumbnail?: string
-  public createdById!: string
+  public thumbnailId?: string
+  public userId!: string
   public authorId!: string
   public totalPage!: number
   public pageType!: EContentType
@@ -45,15 +47,15 @@ ContentModel.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    thumbnail: {
-      type: DataTypes.STRING,
+    thumbnailId: {
+      type: DataTypes.UUID,
       allowNull: true,
     },
     authorId: {
       type: DataTypes.UUID,
       allowNull: false,
     },
-    createdById: {
+    userId: {
       type: DataTypes.UUID,
       allowNull: false,
     },
@@ -77,12 +79,24 @@ ContentModel.init(
   },
 )
 
-ContentModel.belongsTo(UserModel, { as: 'user', foreignKey: 'createdById' })
+ContentModel.belongsTo(UserModel, { as: 'user', foreignKey: 'userId' })
 ContentModel.belongsTo(AuthorModel, { as: 'author', foreignKey: 'authorId' })
+ContentModel.belongsTo(FileModel, {
+  foreignKey: 'thumbnailId',
+  as: 'thumbnail',
+})
+
 ContentModel.belongsToMany(CategoryModel, {
-  through: 'ContentCategories',
+  through: ContentCategoryModel,
   as: 'categories',
   foreignKey: 'contentId',
+  otherKey: 'categoryId',
+})
+CategoryModel.belongsToMany(ContentModel, {
+  through: ContentCategoryModel,
+  as: 'contents',
+  foreignKey: 'categoryId',
+  otherKey: 'contentId',
 })
 
 export default ContentModel

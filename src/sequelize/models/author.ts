@@ -2,6 +2,8 @@ import sequelize from '@/sequelize'
 import { IAuthorAttributes } from '@/types'
 import { DataTypes, Model } from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
+import FileModel from './file'
+import ContentModel from './content'
 
 class AuthorModel
   extends Model<IAuthorAttributes>
@@ -9,8 +11,8 @@ class AuthorModel
 {
   public id!: string
   public fullName!: string
-  public avatarUrl?: string
-  public thumbnail?: string
+  public avatarId?: string
+  public thumbnailId?: string
   public createdAt?: Date
   public updatedAt?: Date
   public deletedAt?: Date
@@ -28,12 +30,12 @@ AuthorModel.init(
       allowNull: false,
       unique: true,
     },
-    avatarUrl: {
-      type: DataTypes.STRING,
+    avatarId: {
+      type: DataTypes.UUID,
       allowNull: true,
     },
-    thumbnail: {
-      type: DataTypes.STRING,
+    thumbnailId: {
+      type: DataTypes.UUID,
       allowNull: true,
     },
   },
@@ -47,5 +49,20 @@ AuthorModel.init(
     deletedAt: true,
   },
 )
+
+AuthorModel.hasMany(ContentModel, {
+  foreignKey: 'authorId',
+  as: 'contents',
+})
+
+AuthorModel.belongsTo(FileModel, {
+  foreignKey: 'avatarId',
+  as: 'avatar',
+})
+
+AuthorModel.belongsTo(FileModel, {
+  foreignKey: 'thumbnailId',
+  as: 'thumbnail',
+})
 
 export default AuthorModel

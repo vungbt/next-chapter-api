@@ -12,9 +12,9 @@ export interface IContentAttributes extends IModelBase {
   slug: string
   name: string
   description?: string
-  thumbnail?: string
+  thumbnailId?: string
   authorId: string
-  createdById: string
+  userId: string
   totalPage: number
   pageType: EContentType
 }

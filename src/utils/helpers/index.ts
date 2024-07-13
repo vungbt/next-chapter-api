@@ -2,6 +2,7 @@ import * as bcrypt from 'bcrypt'
 import { readFileSync } from 'fs'
 import slug from 'slug'
 import { formatDate } from './formatter'
+import { IPaginationReq } from '@/types'
 export * from './formatter'
 export * from './regex'
 
@@ -109,4 +110,18 @@ export const calculateReadingTime = (content: string) => {
   const readingTimeInMinutes = Math.ceil(wordCount / wordsPerMinute)
 
   return readingTimeInMinutes
+}
+
+/**
+ *
+ * @param count
+ * @param pagination
+ * @returns
+ */
+export const resPagination = (count: number, pagination: IPaginationReq) => {
+  const totalPages = Math.ceil(count / (pagination?.pageSize ?? 10))
+  return {
+    totalPages,
+    count,
+  }
 }

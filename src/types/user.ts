@@ -9,7 +9,7 @@ export enum EUserRole {
 export interface IUserAttributes extends IModelBase {
   username: string
   password: string
-  avatarUrl?: string
+  avatarId?: string
   role?: EUserRole
 }
 
