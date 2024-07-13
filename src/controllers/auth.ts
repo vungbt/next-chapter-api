@@ -22,7 +22,18 @@ const signUp = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
+const getMe = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { auth } = req
+    const result = await AuthServices.me(auth?.id ?? '')
+    return res.jsonApi(HttpStatus.OK, result)
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const AuthControllers = {
   signIn,
   signUp,
+  getMe,
 }

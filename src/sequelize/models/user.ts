@@ -2,6 +2,7 @@ import sequelize from '@/sequelize'
 import { EUserRole, IUserAttributes } from '@/types'
 import { DataTypes, Model } from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
+import FileModel from './file'
 
 class UserModel extends Model<IUserAttributes> implements IUserAttributes {
   public id!: string
@@ -51,6 +52,10 @@ UserModel.init(
   },
 )
 
+UserModel.belongsTo(FileModel, {
+  foreignKey: 'avatarId',
+  as: 'avatar',
+})
 UserModel.prototype.toJSON = function () {
   const values: any = Object.assign({}, this.get())
   delete values.password

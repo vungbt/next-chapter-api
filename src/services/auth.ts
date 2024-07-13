@@ -1,3 +1,4 @@
+import FileModel from '@/sequelize/models/file'
 import UserModel from '@/sequelize/models/user'
 import { Payload } from '@/type'
 import {
@@ -6,9 +7,11 @@ import {
   ISignInRes,
   ISignUpArgs,
   ISignUpRes,
+  IUser,
 } from '@/types'
 import ArgumentError from '@/utils/errors/ArgumentError'
 import ConflictError from '@/utils/errors/ConflictError'
+import NotFound from '@/utils/errors/NotFound'
 import { hashPassword } from '@/utils/helpers'
 import { signJwt } from '@/utils/jwt'
 import bcrypt from 'bcrypt'
@@ -50,7 +53,24 @@ const signIn = async (args: ISignInArgs): Promise<ISignInRes> => {
   throw new ArgumentError('username_or_password_invalid')
 }
 
+const me = async (userId: string): Promise<{ data: IUser }> => {
+  const data = await UserModel.findByPk(userId, {
+    include: [
+      {
+        model: FileModel,
+        as: 'avatar',
+      },
+    ],
+  })
+  if (!data) throw new NotFound()
+
+  return {
+    data,
+  }
+}
+
 export const AuthServices = {
   signUp,
   signIn,
+  me,
 }

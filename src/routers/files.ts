@@ -1,4 +1,4 @@
-import { FileControllers } from '@/controllers/files'
+import { FileControllers } from '@/controllers'
 import { authenticateToken } from '@/middlewares/authMiddleware'
 import { EUserRole } from '@/types'
 import express, { Router } from 'express'
