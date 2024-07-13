@@ -7,7 +7,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.createTable('content-category', {
+      await queryInterface.createTable('content_category', {
         id: {
           type: DataTypes.UUID,
           defaultValue: () => uuidv4(),
@@ -59,7 +59,7 @@ module.exports = {
   async down(queryInterface, Sequelize) {
     const transaction = await queryInterface.sequelize.transaction()
     try {
-      await queryInterface.dropTable('content-category')
+      await queryInterface.dropTable('content_category')
       await transaction.commit()
     } catch (error) {
       await transaction.rollback()

@@ -42,7 +42,7 @@ ContentCategoryModel.init(
   },
   {
     sequelize,
-    modelName: 'content-category',
+    modelName: 'content_category',
     freezeTableName: true,
     timestamps: true,
     createdAt: true,

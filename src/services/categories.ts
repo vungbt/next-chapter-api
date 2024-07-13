@@ -10,6 +10,9 @@ import {
 import { genSlug, resPagination } from '@/utils/helpers'
 import { FindOptions, Op, WhereOptions } from 'sequelize'
 import { FileServices } from './files'
+import ContentCategoryModel from '@/sequelize/models/content-category'
+import FileModel from '@/sequelize/models/file'
+import UserModel from '@/sequelize/models/user'
 
 const list = async (params: IFindManyCategory, pagination: IPaginationReq) => {
   const { page, pageSize, limit, offset } = pagination
@@ -23,6 +26,16 @@ const list = async (params: IFindManyCategory, pagination: IPaginationReq) => {
     offset,
     limit,
     where: whereCondition,
+    include: [
+      {
+        model: FileModel,
+        as: 'thumbnail',
+      },
+      {
+        model: UserModel,
+        as: 'user',
+      },
+    ],
   })
   const paginationRes = resPagination(count, pagination)
 
