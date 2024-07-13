@@ -48,7 +48,7 @@ app.use((req, _, next) => {
 app.use('/api', morgan, baseMiddleware, routers, handleErrorApi)
 
 // Start the server
-const port = process.env.PORT ?? 4000
+const port = process.env.PORT ?? 3002
 const server = http.createServer(app)
 server.listen(port, async () => {
   try {

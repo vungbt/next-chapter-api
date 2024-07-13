@@ -7,6 +7,6 @@ export interface ICategoryAttributes extends IModelBase {
   slug: string
   name: string
   description?: string
-  thumbnail?: string
-  createdById: string
+  thumbnailId?: string
+  userId: string
 }
