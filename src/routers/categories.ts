@@ -14,5 +14,15 @@ router.post(
   authenticateToken([EUserRole.Admin]),
   CategoryControllers.createCategory,
 )
-
+router.post(
+  '/update/:id',
+  CategoryValidations.create,
+  authenticateToken([EUserRole.Admin]),
+  CategoryControllers.updateCategory,
+)
+router.delete(
+  '/remove/:id',
+  authenticateToken([EUserRole.Admin]),
+  CategoryControllers.removeCategory,
+)
 export default router
