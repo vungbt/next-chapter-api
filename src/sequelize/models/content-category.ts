@@ -2,6 +2,8 @@ import sequelize from '@/sequelize'
 import { IContentCategoryAttributes } from '@/types'
 import { DataTypes, Model } from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
+import CategoryModel from './category'
+import ContentModel from './content'
 
 class ContentCategoryModel
   extends Model<IContentCategoryAttributes>
@@ -23,7 +25,7 @@ ContentCategoryModel.init(
       type: DataTypes.UUID,
       allowNull: false,
       references: {
-        model: 'category',
+        model: CategoryModel,
         key: 'id',
       },
       onUpdate: 'CASCADE',
@@ -33,7 +35,7 @@ ContentCategoryModel.init(
       type: DataTypes.UUID,
       allowNull: true,
       references: {
-        model: 'content',
+        model: ContentModel,
         key: 'id',
       },
       onUpdate: 'CASCADE',

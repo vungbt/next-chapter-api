@@ -2,8 +2,6 @@ import sequelize from '@/sequelize'
 import { IChapterContentAttributes } from '@/types'
 import { DataTypes, Model } from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
-import UserModel from './user'
-import ContentModel from './content'
 import ChapterModel from './chapter'
 import FileModel from './file'
 

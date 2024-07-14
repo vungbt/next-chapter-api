@@ -1,4 +1,7 @@
 import CategoryModel from '@/sequelize/models/category'
+import ContentModel from '@/sequelize/models/content'
+import FileModel from '@/sequelize/models/file'
+import UserModel from '@/sequelize/models/user'
 import {
   ICategory,
   ICategoryAttributes,
@@ -10,9 +13,6 @@ import {
 import { genSlug, resPagination } from '@/utils/helpers'
 import { FindOptions, Op, WhereOptions } from 'sequelize'
 import { FileServices } from './files'
-import ContentCategoryModel from '@/sequelize/models/content-category'
-import FileModel from '@/sequelize/models/file'
-import UserModel from '@/sequelize/models/user'
 
 const list = async (params: IFindManyCategory, pagination: IPaginationReq) => {
   const { page, pageSize, limit, offset } = pagination
@@ -34,6 +34,10 @@ const list = async (params: IFindManyCategory, pagination: IPaginationReq) => {
       {
         model: UserModel,
         as: 'user',
+      },
+      {
+        model: ContentModel,
+        as: 'contents',
       },
     ],
   })

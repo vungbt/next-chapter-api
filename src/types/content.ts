@@ -15,6 +15,5 @@ export interface IContentAttributes extends IModelBase {
   thumbnailId?: string
   authorId: string
   userId: string
-  totalPage: number
   pageType: EContentType
 }

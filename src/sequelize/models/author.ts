@@ -3,7 +3,6 @@ import { IAuthorAttributes } from '@/types'
 import { DataTypes, Model } from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
 import FileModel from './file'
-import ContentModel from './content'
 
 class AuthorModel
   extends Model<IAuthorAttributes>
@@ -49,11 +48,6 @@ AuthorModel.init(
     deletedAt: true,
   },
 )
-
-AuthorModel.hasMany(ContentModel, {
-  foreignKey: 'authorId',
-  as: 'contents',
-})
 
 AuthorModel.belongsTo(FileModel, {
   foreignKey: 'avatarId',

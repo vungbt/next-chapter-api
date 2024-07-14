@@ -19,7 +19,6 @@ class ContentModel
   public thumbnailId?: string
   public userId!: string
   public authorId!: string
-  public totalPage!: number
   public pageType!: EContentType
   public createdAt?: Date
   public updatedAt?: Date
@@ -54,17 +53,21 @@ ContentModel.init(
     authorId: {
       type: DataTypes.UUID,
       allowNull: false,
+      references: {
+        model: AuthorModel,
+        key: 'id',
+      },
     },
     userId: {
       type: DataTypes.UUID,
       allowNull: false,
+      references: {
+        model: UserModel,
+        key: 'id',
+      },
     },
     pageType: {
       type: DataTypes.ENUM(EContentType.Page, EContentType.Chapter),
-      allowNull: false,
-    },
-    totalPage: {
-      type: DataTypes.NUMBER,
       allowNull: false,
     },
   },

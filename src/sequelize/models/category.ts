@@ -48,6 +48,10 @@ CategoryModel.init(
     userId: {
       type: DataTypes.UUID,
       allowNull: false,
+      references: {
+        model: UserModel,
+        key: 'id',
+      },
     },
   },
   {
@@ -60,7 +64,10 @@ CategoryModel.init(
     deletedAt: true,
   },
 )
-
+UserModel.hasMany(CategoryModel, {
+  foreignKey: 'userId',
+  as: 'categories',
+})
 CategoryModel.belongsTo(UserModel, { as: 'user', foreignKey: 'userId' })
 CategoryModel.belongsTo(FileModel, {
   foreignKey: 'thumbnailId',

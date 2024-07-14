@@ -34,6 +34,10 @@ UserModel.init(
     avatarId: {
       type: DataTypes.UUID,
       allowNull: true,
+      references: {
+        model: FileModel,
+        key: 'id',
+      },
     },
     role: {
       type: DataTypes.ENUM(EUserRole.Admin, EUserRole.Customer),
@@ -52,10 +56,14 @@ UserModel.init(
   },
 )
 
-UserModel.belongsTo(FileModel, {
+UserModel.hasOne(FileModel, {
   foreignKey: 'avatarId',
   as: 'avatar',
 })
+// FileModel.belongsTo(UserModel, {
+//   foreignKey: 'avatarId',
+//   as: 'avatar',
+// })
 UserModel.prototype.toJSON = function () {
   const values: any = Object.assign({}, this.get())
   delete values.password
