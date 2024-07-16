@@ -63,9 +63,23 @@ const removeCategory = async (
   }
 }
 
+const getCategoryById = async (
+  req: express.Request,
+  res: express.Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params
+    const result = await CategoryServices.getCategoryById(id)
+    return res.jsonApi(HttpStatus.OK, { ...result })
+  } catch (error) {
+    next(error)
+  }
+}
 export const CategoryControllers = {
   getAllCategory,
   createCategory,
   updateCategory,
   removeCategory,
+  getCategoryById,
 }

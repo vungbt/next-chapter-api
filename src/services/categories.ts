@@ -110,10 +110,25 @@ const findOne = async (
   return CategoryModel.findOne(options)
 }
 
+const getCategoryById = async (id: string) => {
+  const data = await CategoryModel.findByPk(id, {
+    include: [
+      {
+        model: FileModel,
+        as: 'thumbnail',
+      },
+    ],
+  })
+  return {
+    data,
+  }
+}
+
 export const CategoryServices = {
   list,
   create,
   findOne,
   update,
   remove,
+  getCategoryById,
 }

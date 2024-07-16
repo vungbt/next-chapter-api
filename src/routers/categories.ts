@@ -8,6 +8,7 @@ import express, { Router } from 'express'
 const router: Router = express.Router()
 
 router.get('/', pagingMiddleware, CategoryControllers.getAllCategory)
+router.get('/:id', pagingMiddleware, CategoryControllers.getCategoryById)
 router.post(
   '/',
   CategoryValidations.create,
@@ -21,7 +22,7 @@ router.post(
   CategoryControllers.updateCategory,
 )
 router.delete(
-  '/remove/:id',
+  '/:id',
   authenticateToken([EUserRole.Admin]),
   CategoryControllers.removeCategory,
 )
