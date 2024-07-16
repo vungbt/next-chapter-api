@@ -1,7 +1,7 @@
 import NotFound from '@/utils/errors/NotFound copy'
 import { CloudinaryServices } from './cloudinary'
 import FileModel from '@/sequelize/models/file'
-import { ICreateFileOptions, IFileCloudinary } from '@/types'
+import { EProvider, ICreateFileOptions, IFileCloudinary } from '@/types'
 import pick from 'lodash/pick'
 import env from '@/configs/env'
 
@@ -45,8 +45,35 @@ const createFromStorageId = async (
   } catch (error) {}
 }
 
+const createFormUrl = async (url: string) => {
+  try {
+    return FileModel.create({
+      url: url,
+      provider: EProvider.System,
+      storageId: '',
+    })
+  } catch (error) {
+    throw error
+  }
+}
+
+const createManyFormUrls = async (urls: string[]) => {
+  try {
+    const records = urls.map((item) => ({
+      url: item,
+      provider: EProvider.System,
+      storageId: '',
+    }))
+    return FileModel.bulkCreate(records, { returning: true })
+  } catch (error) {
+    throw error
+  }
+}
+
 export const FileServices = {
   uploadUrl,
   createFromStorageId,
   uploadUrls,
+  createFormUrl,
+  createManyFormUrls,
 }

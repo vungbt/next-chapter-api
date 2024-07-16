@@ -1,5 +1,5 @@
 import sequelize from '@/sequelize'
-import { EContentType, IContentAttributes } from '@/types'
+import { EContentStatus, EContentType, IContentAttributes } from '@/types'
 import { DataTypes, Model } from 'sequelize'
 import { v4 as uuidv4 } from 'uuid'
 import UserModel from './user'
@@ -23,6 +23,7 @@ class ContentModel
   public createdAt?: Date
   public updatedAt?: Date
   public deletedAt?: Date
+  public status?: EContentStatus
 }
 
 ContentModel.init(
@@ -70,6 +71,15 @@ ContentModel.init(
       type: DataTypes.ENUM(EContentType.Page, EContentType.Chapter),
       allowNull: false,
     },
+    status: {
+      type: DataTypes.ENUM(
+        EContentStatus.Coming,
+        EContentStatus.Finish,
+        EContentStatus.Pending,
+      ),
+      allowNull: true,
+      defaultValue: EContentStatus.Pending,
+    },
   },
   {
     sequelize,
@@ -87,6 +97,7 @@ ContentModel.belongsTo(AuthorModel, { as: 'author', foreignKey: 'authorId' })
 ContentModel.belongsTo(FileModel, {
   foreignKey: 'thumbnailId',
   as: 'thumbnail',
+  hooks: true,
 })
 
 ContentModel.belongsToMany(CategoryModel, {
@@ -94,12 +105,14 @@ ContentModel.belongsToMany(CategoryModel, {
   as: 'categories',
   foreignKey: 'contentId',
   otherKey: 'categoryId',
+  hooks: true,
 })
 CategoryModel.belongsToMany(ContentModel, {
   through: ContentCategoryModel,
   as: 'contents',
   foreignKey: 'categoryId',
   otherKey: 'contentId',
+  hooks: true,
 })
 
 export default ContentModel

@@ -6,6 +6,12 @@ export enum EContentType {
   Chapter = 'chapter',
 }
 
+export enum EContentStatus {
+  Pending = 'pending',
+  Finish = 'finish',
+  Coming = 'coming',
+}
+
 export interface IContent extends ContentModel {}
 
 export interface IContentAttributes extends IModelBase {
@@ -16,4 +22,19 @@ export interface IContentAttributes extends IModelBase {
   authorId: string
   userId: string
   pageType: EContentType
+  status?: EContentStatus
+}
+
+export interface ICreateContent {
+  name: string
+  description?: string
+  publicId?: string
+  authorId: string
+  userId: string
+  pageType: EContentType
+  status?: EContentStatus
+}
+
+export interface IFindManyContent {
+  q?: string
 }
