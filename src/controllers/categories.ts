@@ -2,6 +2,7 @@ import { HttpStatus } from '@/constants'
 import { CategoryServices } from '@/services'
 import { ICreateCategory, IFindManyCategory } from '@/types'
 import express, { NextFunction } from 'express'
+import { validate as isUUID } from 'uuid'
 
 const getAllCategory = async (
   req: express.Request<{}, {}, {}, IFindManyCategory>,
@@ -32,8 +33,53 @@ const createCategory = async (
     next(error)
   }
 }
+const updateCategory = async (
+  req: express.Request<{ id: string }, {}, ICreateCategory>,
+  res: express.Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params
+    const { body, auth } = req
+    const userId = auth?.id ?? ''
+    const result = await CategoryServices.update(id, { ...body, userId })
+    return res.jsonApi(HttpStatus.OK, { ...result })
+  } catch (error) {
+    next(error)
+  }
+}
 
+const removeCategory = async (
+  req: express.Request<{ id: string }>,
+  res: express.Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params
+    const result = await CategoryServices.remove(id)
+    return res.jsonApi(HttpStatus.OK, { ...result })
+  } catch (error) {
+    next(error)
+  }
+}
+
+const getCategoryById = async (
+  req: express.Request,
+  res: express.Response,
+  next: NextFunction,
+) => {
+  try {
+    const { id } = req.params
+    const result = await CategoryServices.getCategoryById(id)
+    return res.jsonApi(HttpStatus.OK, { ...result })
+  } catch (error) {
+    next(error)
+  }
+}
 export const CategoryControllers = {
   getAllCategory,
   createCategory,
+  updateCategory,
+  removeCategory,
+  getCategoryById,
 }

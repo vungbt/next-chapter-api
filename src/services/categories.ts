@@ -72,14 +72,63 @@ const create = async (body: ICreateCategory): Promise<{ data: ICategory }> => {
   }
 }
 
+const update = async (id: string, body: ICreateCategory) => {
+  const { name, description, publicId, userId } = body
+  const slug = genSlug(name)
+  let thumbnailId = undefined
+  if (publicId) {
+    const file = await FileServices.createFromStorageId(publicId)
+    thumbnailId = file?.id
+  }
+  const data = await CategoryModel.update(
+    {
+      name,
+      slug,
+      userId,
+      description,
+      thumbnailId,
+    },
+    { where: { id } },
+  )
+  const updatedCategory = await CategoryModel.findByPk(id)
+
+  return {
+    data,
+    updatedCategory,
+  }
+}
+
+const remove = async (id: string) => {
+  const data = await CategoryModel.destroy({ where: { id } })
+  return {
+    data,
+  }
+}
 const findOne = async (
   options?: FindOptions<IUserAttributes> | undefined,
 ): Promise<ICategory | null> => {
   return CategoryModel.findOne(options)
 }
 
+const getCategoryById = async (id: string) => {
+  const data = await CategoryModel.findByPk(id, {
+    include: [
+      {
+        model: FileModel,
+        as: 'thumbnail',
+      },
+    ],
+  })
+  return {
+    data,
+  }
+}
+
 export const CategoryServices = {
   list,
   create,
   findOne,
+  update,
+  remove,
+  getCategoryById,
 }
