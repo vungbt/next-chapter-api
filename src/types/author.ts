@@ -8,3 +8,7 @@ export interface IAuthorAttributes extends IModelBase {
   avatarId?: string
   thumbnailId?: string
 }
+
+export interface IFindManyAuthor {
+  q?: string
+}
