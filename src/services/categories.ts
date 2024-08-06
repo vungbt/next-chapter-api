@@ -90,8 +90,10 @@ const update = async (id: string, body: ICreateCategory) => {
     },
     { where: { id } },
   )
+
   return {
     data,
+
   }
 }
 

@@ -12,6 +12,7 @@ class ChapterModel
   public id!: string
   public userId!: string
   public contentId!: string
+  public name!: string
 }
 
 ChapterModel.init(
@@ -40,6 +41,10 @@ ChapterModel.init(
       },
       onUpdate: 'CASCADE',
       onDelete: 'SET NULL',
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
   },
   {

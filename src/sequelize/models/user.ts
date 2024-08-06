@@ -56,14 +56,10 @@ UserModel.init(
   },
 )
 
-UserModel.hasOne(FileModel, {
+UserModel.belongsTo(FileModel, {
   foreignKey: 'avatarId',
   as: 'avatar',
 })
-// FileModel.belongsTo(UserModel, {
-//   foreignKey: 'avatarId',
-//   as: 'avatar',
-// })
 UserModel.prototype.toJSON = function () {
   const values: any = Object.assign({}, this.get())
   delete values.password

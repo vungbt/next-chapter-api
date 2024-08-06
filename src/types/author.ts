@@ -8,7 +8,6 @@ export interface IAuthorAttributes extends IModelBase {
   avatarId?: string
   thumbnailId?: string
 }
-
 export interface ICreateAuthor {
   fullName: string
   avatarUrlId?: string

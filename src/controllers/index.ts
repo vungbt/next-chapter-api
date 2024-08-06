@@ -2,4 +2,6 @@ export * from './users'
 export * from './auth'
 export * from './files'
 export * from './categories'
-export * from './author'
+export * from './contents'
+export * from './authors'
+
