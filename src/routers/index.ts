@@ -15,6 +15,7 @@ router.use('/files', files)
 router.use('/categories', categories)
 router.use('/authors', authors)
 router.use('/contents', contents)
+
 router.all('*', (_, res) =>
   res.jsonApi(HttpStatus.OK, { message: 'message:hello_api' }),
 )

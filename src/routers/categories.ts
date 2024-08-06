@@ -15,8 +15,8 @@ router.post(
   authenticateToken([EUserRole.Admin]),
   CategoryControllers.createCategory,
 )
-router.post(
-  '/update/:id',
+router.put(
+  '/:id',
   CategoryValidations.create,
   authenticateToken([EUserRole.Admin]),
   CategoryControllers.updateCategory,

@@ -90,11 +90,10 @@ const update = async (id: string, body: ICreateCategory) => {
     },
     { where: { id } },
   )
-  const updatedCategory = await CategoryModel.findByPk(id)
 
   return {
     data,
-    updatedCategory,
+
   }
 }
 
