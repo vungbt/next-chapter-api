@@ -1,4 +1,4 @@
-import { authorControllers } from '@/controllers'
+import { authorControllers } from '@/controllers/authors'
 import { authenticateToken } from '@/middlewares/authMiddleware'
 import pagingMiddleware from '@/middlewares/paginationMiddleware'
 import { EUserRole } from '@/types'
