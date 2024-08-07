@@ -93,7 +93,6 @@ const update = async (id: string, body: ICreateCategory) => {
 
   return {
     data,
-
   }
 }
 
