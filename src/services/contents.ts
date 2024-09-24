@@ -7,14 +7,14 @@ import {
   IContent,
   IContentAttributes,
   ICreateContent,
-  IFindManyCategory,
+  IFindManyContent,
   IPaginationReq,
 } from '@/types'
 import { genSlug, resPagination } from '@/utils/helpers'
 import { Op, WhereOptions } from 'sequelize'
 import { FileServices } from './files'
 
-const list = async (params: IFindManyCategory, pagination: IPaginationReq) => {
+const list = async (params: IFindManyContent, pagination: IPaginationReq) => {
   const { page, pageSize, limit, offset } = pagination
   const { q } = params
 

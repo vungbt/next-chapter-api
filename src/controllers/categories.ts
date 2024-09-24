@@ -2,7 +2,6 @@ import { HttpStatus } from '@/constants'
 import { CategoryServices } from '@/services'
 import { ICreateCategory, IFindManyCategory } from '@/types'
 import express, { NextFunction } from 'express'
-import { validate as isUUID } from 'uuid'
 
 const getAllCategory = async (
   req: express.Request<{}, {}, {}, IFindManyCategory>,
@@ -28,11 +27,12 @@ const createCategory = async (
     const { body, auth } = req
     const userId = auth?.id ?? ''
     const result = await CategoryServices.create({ ...body, userId })
-    return res.jsonApi(HttpStatus.OK, { ...result })
+    return res.jsonApi(HttpStatus.OK, result)
   } catch (error) {
     next(error)
   }
 }
+
 const updateCategory = async (
   req: express.Request<{ id: string }, {}, ICreateCategory>,
   res: express.Response,
@@ -41,9 +41,8 @@ const updateCategory = async (
   try {
     const { id } = req.params
     const { body, auth } = req
-    const userId = auth?.id ?? ''
-    const result = await CategoryServices.update(id, { ...body, userId })
-    return res.jsonApi(HttpStatus.OK, { ...result })
+    const result = await CategoryServices.update(id, { ...body })
+    return res.jsonApi(HttpStatus.OK, result)
   } catch (error) {
     next(error)
   }
@@ -57,7 +56,7 @@ const removeCategory = async (
   try {
     const { id } = req.params
     const result = await CategoryServices.remove(id)
-    return res.jsonApi(HttpStatus.OK, { ...result })
+    return res.jsonApi(HttpStatus.OK, result)
   } catch (error) {
     next(error)
   }
@@ -71,7 +70,7 @@ const getCategoryById = async (
   try {
     const { id } = req.params
     const result = await CategoryServices.getCategoryById(id)
-    return res.jsonApi(HttpStatus.OK, { ...result })
+    return res.jsonApi(HttpStatus.OK, result)
   } catch (error) {
     next(error)
   }

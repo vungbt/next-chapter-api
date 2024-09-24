@@ -3,6 +3,7 @@ import ContentModel from '@/sequelize/models/content'
 import FileModel from '@/sequelize/models/file'
 import UserModel from '@/sequelize/models/user'
 import {
+  EOrder,
   ICategory,
   ICategoryAttributes,
   ICreateCategory,
@@ -16,7 +17,7 @@ import { FileServices } from './files'
 
 const list = async (params: IFindManyCategory, pagination: IPaginationReq) => {
   const { page, pageSize, limit, offset } = pagination
-  const { q } = params
+  const { q, orders } = params
 
   const whereCondition: WhereOptions<ICategoryAttributes> = {
     name: { [Op.iLike]: `%${q}%` },
@@ -40,6 +41,7 @@ const list = async (params: IFindManyCategory, pagination: IPaginationReq) => {
         as: 'contents',
       },
     ],
+    order: orders,
   })
   const paginationRes = resPagination(count, pagination)
 
@@ -73,23 +75,27 @@ const create = async (body: ICreateCategory): Promise<{ data: ICategory }> => {
 }
 
 const update = async (id: string, body: ICreateCategory) => {
-  const { name, description, publicId, userId } = body
+  const { name, description, publicId } = body
   const slug = genSlug(name)
   let thumbnailId = undefined
   if (publicId) {
     const file = await FileServices.createFromStorageId(publicId)
     thumbnailId = file?.id
   }
-  const data = await CategoryModel.update(
+  const [affectedCount] = await CategoryModel.update(
     {
       name,
       slug,
-      userId,
       description,
       thumbnailId,
     },
     { where: { id } },
   )
+
+  let data = null
+  if (affectedCount > 0) {
+    data = await CategoryModel.findByPk(id)
+  }
 
   return {
     data,
@@ -97,15 +103,21 @@ const update = async (id: string, body: ICreateCategory) => {
 }
 
 const remove = async (id: string) => {
-  const data = await CategoryModel.destroy({ where: { id } })
+  const affectedCount = await CategoryModel.destroy({ where: { id } })
+  let data = null
+  if (affectedCount > 0) {
+    data = await CategoryModel.findByPk(id)
+  }
   return {
     data,
   }
 }
-const findOne = async (
-  options?: FindOptions<IUserAttributes> | undefined,
-): Promise<ICategory | null> => {
-  return CategoryModel.findOne(options)
+
+const findOne = async (options?: FindOptions<IUserAttributes> | undefined) => {
+  const data = CategoryModel.findOne(options)
+  return {
+    data,
+  }
 }
 
 const getCategoryById = async (id: string) => {

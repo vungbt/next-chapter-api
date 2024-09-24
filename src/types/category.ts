@@ -1,5 +1,5 @@
 import CategoryModel from '@/sequelize/models/category'
-import { IModelBase } from './common'
+import { IModelBase, IRequestBase } from './common'
 
 export interface ICategory extends CategoryModel {}
 
@@ -11,7 +11,7 @@ export interface ICategoryAttributes extends IModelBase {
   thumbnailId?: string
 }
 
-export interface IFindManyCategory {
+export interface IFindManyCategory extends IRequestBase {
   q?: string
 }
 

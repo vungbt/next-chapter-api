@@ -1,3 +1,5 @@
+import { Order } from 'sequelize'
+
 export interface IModelBase {
   id?: string
   createdAt?: Date
@@ -10,4 +12,13 @@ export interface IPaginationReq {
   pageSize?: number
   offset?: number
   limit?: number
+}
+
+export interface IRequestBase {
+  orders?: Order
+}
+
+export enum EOrder {
+  DESC = 'desc',
+  ASC = 'asc',
 }
